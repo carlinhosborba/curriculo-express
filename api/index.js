@@ -1,3 +1,7 @@
-// api/index.js (handler serverless do Vercel)
+// api/index.js
+// 👇 força o Vercel a incluir os pacotes no bundle
+require('pg');
+require('pg-hstore');
+
 const app = require('../src/app');
-module.exports = app; // Vercel Node.js (CJS) aceita module.exports = (req,res)=>...
+module.exports = (req, res) => app(req, res);

@@ -8,6 +8,12 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
+// 🔹 Log de requisições (ajuda a depurar rotas)
+app.use((req, _res, next) => {
+  console.log(`[REQ] ${req.method} ${req.originalUrl}`);
+  next();
+});
+
 // Rota raiz (evita "Cannot GET /")
 app.get('/', (req, res) => {
   res.send('Currículo Express API — visite /api/v1 ou /api/v1/health');

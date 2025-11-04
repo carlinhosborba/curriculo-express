@@ -4,9 +4,25 @@ const { Model } = require('sequelize');
 module.exports = (sequelize, DataTypes) => {
   class Person extends Model {
     static associate(models) {
-      // associations virão depois (Education, Experience, etc.)
+      // Associação 1:N com Education
+      Person.hasMany(models.Education, { foreignKey: 'personId', as: 'educations' });
+
+      // Associação 1:N com Experience
+      Person.hasMany(models.Experience, { foreignKey: 'personId', as: 'experiences' });
+
+      // Associação 1:N com Project
+      Person.hasMany(models.Project, { foreignKey: 'personId', as: 'projects' });
+
+      // Associação N:N com Skill
+      Person.belongsToMany(models.Skill, {
+        through: models.PersonSkill,
+        foreignKey: 'personId',
+        otherKey: 'skillId',
+        as: 'skills'
+      });
     }
   }
+
   Person.init(
     {
       fullName: { type: DataTypes.STRING(180), allowNull: false },
@@ -23,5 +39,6 @@ module.exports = (sequelize, DataTypes) => {
       tableName: 'persons' // 👈 garante o mesmo nome usado na migration
     }
   );
+
   return Person;
 };

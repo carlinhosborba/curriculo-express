@@ -1,29 +1,25 @@
 // config/config.js
 require('dotenv').config();
 
+const common = {
+  dialect: 'postgres',
+  dialectOptions: {
+    ssl: { require: true, rejectUnauthorized: false }
+  },
+  logging: false
+};
+
 module.exports = {
   development: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: { require: true }
-    },
-    logging: false
+    ...common,
+    use_env_variable: 'DATABASE_URL'
   },
   test: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: { require: true }
-    },
-    logging: false
+    ...common,
+    use_env_variable: 'DATABASE_URL'
   },
   production: {
-    use_env_variable: 'DATABASE_URL',
-    dialect: 'postgres',
-    dialectOptions: {
-      ssl: { require: true }
-    },
-    logging: false
+    ...common,
+    use_env_variable: 'DATABASE_URL'
   }
 };

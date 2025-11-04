@@ -1,2 +1,3 @@
+// api/index.js (handler serverless do Vercel)
 const app = require('../src/app');
-module.exports = (req, res) => app(req, res);
+module.exports = app; // Vercel Node.js (CJS) aceita module.exports = (req,res)=>...
